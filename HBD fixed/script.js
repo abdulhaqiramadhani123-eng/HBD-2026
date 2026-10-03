@@ -1,12 +1,6 @@
-/**
+/*
  * ==========================================================================
  * INTERACTIVE BIRTHDAY GREETING - JAVASCRIPT LOGIC
- * Features:
- *  1. Floating Hearts & Flower Petals background animation
- *  2. Sweet Music Box (Web Audio API Synthesizer - Happy Birthday melody)
- *  3. Interactive Landing Page transition
- *  4. Interactive Cake with blowable candle flame & canvas-confetti
- *  5. Greeting Card interactions & personalization
  * ==========================================================================
  */
 
@@ -408,7 +402,7 @@ if (recipientNameEl) {
   recipientNameEl.addEventListener("click", handleEditName);
 }
 
-/*if (hugBtn) {
+if (hugBtn) {
   hugBtn.addEventListener("click", async () => {
     // ==============================
     // KONFIGURASI FONNTE
@@ -489,7 +483,7 @@ if (recipientNameEl) {
       hugBtn.style.color = "";
     }, 3000);
   });
-}*/
+}
 
 miniCards.forEach((card) => {
   card.addEventListener("click", () => {
