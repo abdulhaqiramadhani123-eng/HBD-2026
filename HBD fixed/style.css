@@ -1,0 +1,1650 @@
+.night-sky {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 45%,
+    #150326 0%,
+    #06010e 60%,
+    #000003 100%
+  );
+  z-index: 1;
+}
+
+.nebula-glow {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85vw;
+  height: 75vh;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 240, 255, 0.14) 0%,
+    rgba(168, 85, 247, 0.1) 45%,
+    rgba(255, 45, 117, 0.06) 70%,
+    transparent 85%
+  );
+  filter: blur(55px);
+  pointer-events: none;
+  z-index: 2;
+  animation: nebulaPulse 7s ease-in-out infinite alternate;
+}
+
+@keyframes nebulaPulse {
+  0% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.95);
+  }
+
+  100% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+.spotlight {
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  height: 90vh;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 65%
+  );
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.anamorphic-beam {
+  position: fixed;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150vw;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 240, 255, 0.35),
+    rgba(255, 45, 117, 0.45),
+    rgba(255, 215, 0, 0.35),
+    transparent
+  );
+  filter: blur(2px);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 2;
+}
+
+#canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+/* Merge overrides: background PP berada di belakang seluruh UI Birthday dari Cursor */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  background: transparent !important;
+  overflow: hidden !important;
+}
+body {
+  display: block !important;
+  overflow: hidden !important;
+  color: var(--text-main);
+}
+.night-sky,
+.nebula-glow,
+.spotlight,
+.anamorphic-beam {
+  z-index: 0 !important;
+}
+#canvas {
+  z-index: 1 !important;
+  opacity: 1 !important;
+  pointer-events: none;
+}
+#particles-container {
+  z-index: 3 !important;
+}
+.app-container {
+  position: relative;
+  z-index: 10 !important;
+}
+.music-player-fixed {
+  z-index: 100 !important;
+}
+
+/* ==========================================================================
+   THEME STYLES - INTERACTIVE BIRTHDAY GREETING FOR FEMALE BEST FRIEND
+   Palette: Soft Pink, Cream, & Lavender (Aesthetic Pastel Theme)
+   ========================================================================== */
+
+:root {
+  /* Pastel Color Variables */
+  --soft-pink: #ffd6e0;
+  --blush-pink: #ffb7c5;
+  --deep-pink: #ff8fa3;
+  --rose-accent: #e76f8e;
+  --rose-dark: #c04d6d;
+
+  --cream-soft: #fffdf9;
+  --cream-warm: #fff2e2;
+  --cream-card: #ffffff;
+  --cream-border: #f8dfcf;
+
+  --lavender-light: #f7f0ff;
+  --lavender-soft: #ede1ff;
+  --lavender-accent: #c084fc;
+  --lavender-deep: #8b5cf6;
+  --lavender-text: #6b438c;
+
+  --text-main: #443249;
+  --text-muted: #816c87;
+  --text-light: #a491aa;
+
+  /* Elevation and Radii */
+  --shadow-sm: 0 4px 12px rgba(231, 111, 142, 0.08);
+  --shadow-md:
+    0 12px 28px -4px rgba(214, 115, 155, 0.16),
+    0 4px 10px rgba(175, 120, 170, 0.06);
+  --shadow-lg: 0 20px 40px -8px rgba(220, 110, 150, 0.22);
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-display: "Dancing Script", cursive;
+  --font-body: "Quicksand", sans-serif;
+  --transition-smooth: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   RESET & BASE STYLES
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text-main);
+  background: linear-gradient(135deg, #fff2f5 0%, #fff7ec 45%, #f5edff 100%);
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  line-height: 1.6;
+  height: 100vh;
+}
+
+/* Subtle background glowing circles for depth */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(80px);
+  opacity: 0.6;
+}
+
+body::before {
+  top: -10%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, var(--soft-pink), transparent 70%);
+}
+
+body::after {
+  bottom: -10%;
+  right: -10%;
+  width: 55vw;
+  height: 55vw;
+  background: radial-gradient(circle, var(--lavender-soft), transparent 70%);
+}
+
+/* ==========================================================================
+   FLOATING PARTICLES CANVAS / CONTAINER
+   ========================================================================== */
+#particles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.floating-particle {
+  position: absolute;
+  bottom: -40px;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: floatUpward linear forwards;
+}
+
+@keyframes floatUpward {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(0.8);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.85;
+  }
+
+  85% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translateY(-105vh) rotate(360deg) scale(1.1);
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   MAIN WRAPPER & LAYOUT
+   ========================================================================== */
+.app-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 20px 80px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 36px;
+}
+
+/* ==========================================================================
+   MUSIC PLAYER BAR (TOP RIGHT CORNER)
+   ========================================================================== */
+.music-player-fixed {
+  position: fixed;
+  top: 18px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.music-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.88);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid var(--soft-pink);
+  border-radius: var(--radius-full);
+  padding: 8px 16px 8px 10px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  transition: var(--transition-smooth);
+}
+
+.music-btn:hover {
+  background: #ffffff;
+  border-color: var(--rose-accent);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.music-btn:active {
+  transform: scale(0.96);
+}
+
+.vinyl-disc {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--rose-accent),
+    var(--lavender-accent)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  box-shadow: 0 2px 6px rgba(231, 111, 142, 0.3);
+}
+
+.music-btn.playing .vinyl-disc {
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Equalizer waves */
+.music-wave {
+  display: flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 14px;
+}
+
+.music-wave span {
+  width: 2.5px;
+  height: 4px;
+  background-color: var(--rose-accent);
+  border-radius: 2px;
+  transition: height 0.2s ease;
+}
+
+.music-btn.playing .music-wave span:nth-child(1) {
+  animation: wave 0.8s ease infinite alternate 0.1s;
+}
+
+.music-btn.playing .music-wave span:nth-child(2) {
+  animation: wave 0.8s ease infinite alternate 0.3s;
+}
+
+.music-btn.playing .music-wave span:nth-child(3) {
+  animation: wave 0.8s ease infinite alternate 0.2s;
+}
+
+@keyframes wave {
+  0% {
+    height: 3px;
+  }
+
+  100% {
+    height: 14px;
+  }
+}
+
+/* ==========================================================================
+   LANDING HERO SECTION (FEATURE 3a)
+   ========================================================================== */
+.hero-section {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 40px 16px;
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease;
+}
+
+.hero-section.hidden-section {
+  display: none;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.cute-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--soft-pink);
+  color: var(--rose-dark);
+  padding: 6px 18px;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  animation: gentlePulse 2.5s infinite ease-in-out;
+}
+
+@keyframes gentlePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  color: var(--rose-dark);
+  line-height: 1.2;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 10px rgba(231, 111, 142, 0.15);
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: var(--blush-pink);
+  max-width: 520px;
+  margin: 0 auto 36px auto;
+}
+
+/* Floating Gift / Envelope Visual */
+.gift-box-wrapper {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin-bottom: 36px;
+  cursor: pointer;
+  perspective: 600px;
+}
+
+.gift-box-wrapper:hover .gift-box-inner {
+  transform: translateY(-8px) rotate(2deg) scale(1.04);
+}
+
+.gift-box-inner {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #ffffff 0%, var(--cream-warm) 100%);
+  border: 3px solid var(--soft-pink);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.4s ease;
+  position: relative;
+}
+
+.gift-icon {
+  font-size: 54px;
+  animation: gentleBounce 2s infinite ease-in-out;
+  filter: drop-shadow(0 4px 8px rgba(231, 111, 142, 0.25));
+}
+
+@keyframes gentleBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.gift-sparkles {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  font-size: 22px;
+  animation: spin 6s linear infinite;
+}
+
+/* Unique & Cute Opener Button (3a) */
+.btn-magical-opener {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #ff9bb2 0%, #e76f8e 50%, #c084fc 100%);
+  color: #ffffff;
+  border: none;
+  outline: none;
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 700;
+  padding: 16px 36px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  box-shadow: 0 10px 25px -3px rgba(231, 111, 142, 0.45);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.btn-magical-opener::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: 0.6s;
+}
+
+.btn-magical-opener:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 16px 32px -4px rgba(231, 111, 142, 0.55);
+}
+
+.btn-magical-opener:hover::before {
+  left: 100%;
+}
+
+.btn-magical-opener:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-icon-shine {
+  font-size: 20px;
+  animation: shineWobble 2s ease-in-out infinite;
+}
+
+@keyframes shineWobble {
+  0%,
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  25% {
+    transform: rotate(-10deg) scale(1.15);
+  }
+
+  75% {
+    transform: rotate(10deg) scale(1.15);
+  }
+}
+
+/* ==========================================================================
+   INTERACTIVE BIRTHDAY EXPERIENCE (HIDDEN INITIALLY, REVEALED ON OPEN)
+   ========================================================================== */
+.experience-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s ease;
+}
+
+.experience-wrapper.visible-section {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   INTERACTIVE CAKE SECTION (FEATURE 3b)
+   ========================================================================== */
+.cake-card {
+  width: 100%;
+  max-width: 620px;
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 2px solid var(--soft-pink);
+  border-radius: var(--radius-lg);
+  padding: 40px 24px 36px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.cake-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(
+    90deg,
+    var(--soft-pink),
+    var(--rose-accent),
+    var(--lavender-accent),
+    var(--cream-warm)
+  );
+}
+
+.cake-header-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: var(--rose-dark);
+  margin-bottom: 6px;
+}
+
+.cake-instruction {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.instruction-badge {
+  background: var(--cream-warm);
+  border: 1px solid var(--cream-border);
+  color: #a86236;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+}
+
+/* 3D-Look Aesthetic Cake Illustration */
+.cake-stage {
+  position: relative;
+  width: 280px;
+  height: 240px;
+  margin: 10px auto 26px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+/* Cake Plate */
+.cake-plate {
+  position: absolute;
+  bottom: 0;
+  width: 270px;
+  height: 20px;
+  background: linear-gradient(to bottom, #fcece8, #ebd2cd);
+  border-radius: 100px;
+  box-shadow: 0 10px 20px rgba(180, 120, 140, 0.2);
+  border-bottom: 3px solid #d5b9b3;
+  z-index: 1;
+}
+
+/* Tier 1 (Bottom Layer) */
+.cake-tier-bottom {
+  position: absolute;
+  bottom: 12px;
+  width: 220px;
+  height: 80px;
+  background: linear-gradient(to bottom, #ffe4ec 0%, #ffd0dd 50%, #f9c2d1 100%);
+  border-radius: 18px 18px 14px 14px;
+  box-shadow:
+    inset 0 6px 0 rgba(255, 255, 255, 0.7),
+    0 4px 12px rgba(190, 110, 140, 0.15);
+  z-index: 2;
+  overflow: hidden;
+  border: 2px solid #f7b7c8;
+}
+
+/* Cream Dripping Pattern Tier 1 */
+.drip-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 26px;
+  display: flex;
+}
+
+.drip {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 2px 4px rgba(220, 140, 160, 0.15);
+}
+
+.drip:nth-child(even) {
+  height: 22px;
+  border-radius: 0 0 14px 14px;
+  background: #fffbf9;
+}
+
+.drip:nth-child(odd) {
+  height: 15px;
+}
+
+/* Tier 2 (Top Layer) */
+.cake-tier-top {
+  position: absolute;
+  bottom: 84px;
+  width: 160px;
+  height: 65px;
+  background: linear-gradient(to bottom, #f3e8ff 0%, #e9d5ff 60%, #debaf7 100%);
+  border-radius: 16px 16px 12px 12px;
+  box-shadow:
+    inset 0 5px 0 rgba(255, 255, 255, 0.85),
+    0 6px 14px rgba(160, 100, 190, 0.18);
+  z-index: 3;
+  overflow: hidden;
+  border: 2px solid #d8b4fe;
+}
+
+.cake-tier-top .drip {
+  background: #ffffff;
+}
+
+/* Decorative Fruit / Pearls on Top */
+.cake-decorations {
+  position: absolute;
+  bottom: 144px;
+  width: 160px;
+  display: flex;
+  justify-content: space-around;
+  z-index: 4;
+}
+
+.strawberry {
+  font-size: 20px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+  animation: gentleBounce 2.5s infinite ease-in-out;
+}
+
+.strawberry:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.strawberry:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+/* The Birthday Candle */
+.candle-wrapper {
+  position: absolute;
+  bottom: 146px;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.candle-stick {
+  width: 14px;
+  height: 52px;
+  background: repeating-linear-gradient(
+    45deg,
+    #ffffff,
+    #ffffff 6px,
+    #ff8fa3 6px,
+    #ff8fa3 12px
+  );
+  border-radius: 6px 6px 3px 3px;
+  box-shadow:
+    inset -2px 0 3px rgba(0, 0, 0, 0.1),
+    0 2px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 143, 163, 0.4);
+}
+
+.candle-wick {
+  width: 3px;
+  height: 9px;
+  background-color: #3b2a30;
+  border-radius: 2px;
+}
+
+/* Candle Flame */
+.candle-flame {
+  position: relative;
+  width: 18px;
+  height: 28px;
+  background: linear-gradient(to bottom, #fffb91 0%, #ff9f43 55%, #ee5253 100%);
+  border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
+  box-shadow:
+    0 0 18px 4px rgba(255, 177, 66, 0.75),
+    0 0 30px 10px rgba(255, 107, 129, 0.35);
+  animation: flicker 1.2s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+@keyframes flicker {
+  0% {
+    transform: rotate(-2deg) scale(1);
+  }
+
+  25% {
+    transform: rotate(3deg) scale(1.06, 0.95);
+  }
+
+  50% {
+    transform: rotate(-3deg) scale(0.96, 1.05);
+  }
+
+  75% {
+    transform: rotate(2deg) scale(1.03, 1.02);
+  }
+
+  100% {
+    transform: rotate(-1deg) scale(1.08, 0.98);
+  }
+}
+
+/* Extinguished Candle State */
+.candle-wrapper.extinguished .candle-flame {
+  opacity: 0;
+  transform: scale(0.2);
+  pointer-events: none;
+}
+
+/* Smoke puff when blown out */
+.smoke-puff {
+  position: absolute;
+  top: -15px;
+  width: 12px;
+  height: 12px;
+  background: rgba(180, 170, 185, 0.6);
+  border-radius: 50%;
+  filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.candle-wrapper.extinguished .smoke-puff {
+  animation: smokeRise 1.2s ease-out forwards;
+}
+
+@keyframes smokeRise {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0.8;
+  }
+
+  60% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateY(-40px) scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* Wish Banner Message */
+.wish-banner {
+  background: linear-gradient(135deg, var(--cream-soft), #fff5f8);
+  border: 1.5px dashed var(--rose-accent);
+  border-radius: var(--radius-md);
+  padding: 18px 24px;
+  max-width: 480px;
+  width: 100%;
+  margin-top: 6px;
+  display: none;
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.wish-banner.active {
+  display: block;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.wish-banner-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--rose-dark);
+  margin-bottom: 4px;
+}
+
+.wish-banner-desc {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   GREETING CARD & FLORAL AESTHETIC SECTION (FEATURE 3c)
+   ========================================================================== */
+.greeting-section {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.floral-card-wrapper {
+  position: relative;
+  width: 100%;
+  background: var(--cream-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--cream-border);
+  padding: 46px 36px 40px 36px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+@media (max-width: 640px) {
+  .floral-card-wrapper {
+    padding: 32px 20px 28px 20px;
+  }
+}
+
+/* Botanical Floral Corner Accents */
+.floral-corner {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  pointer-events: none;
+  opacity: 0.85;
+  z-index: 1;
+}
+
+.floral-corner.top-left {
+  top: 0;
+  left: 0;
+}
+
+.floral-corner.top-right {
+  top: 0;
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.floral-corner.bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: scaleY(-1);
+}
+
+.floral-corner.bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: scale(-1, -1);
+}
+
+/* Inner Frame with Delicate Border */
+.card-inner-frame {
+  position: relative;
+  z-index: 2;
+  border: 1px dashed var(--soft-pink);
+  border-radius: var(--radius-md);
+  padding: 32px 28px;
+  background: rgba(255, 253, 250, 0.7);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .card-inner-frame {
+    padding: 24px 16px;
+  }
+}
+
+/* Cute Header Ribbon */
+.card-ribbon {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ffeef2, #f5e9ff);
+  border: 1.5px solid var(--blush-pink);
+  padding: 8px 22px;
+  border-radius: var(--radius-full);
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-ribbon-text {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--rose-dark);
+}
+
+.card-greeting-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+  color: var(--rose-dark);
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+/* Best Friend Name Tag with Personalize Edit Button */
+.recipient-badge-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--lavender-light);
+  border: 1px solid var(--lavender-soft);
+  padding: 6px 18px;
+  border-radius: var(--radius-full);
+  margin-bottom: 24px;
+}
+
+.recipient-label {
+  font-size: 13px;
+  color: var(--lavender-text);
+  font-weight: 600;
+}
+
+.recipient-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--lavender-deep);
+}
+
+.btn-edit-name {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  padding: 2px 4px;
+}
+
+.btn-edit-name:hover {
+  opacity: 1;
+}
+
+/* Heartfelt Letter Content */
+.letter-body {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text-main);
+  max-width: 540px;
+  margin-bottom: 28px;
+  text-align: justify;
+  text-align-last: center;
+}
+
+.letter-body p {
+  margin-bottom: 16px;
+}
+
+.letter-highlight {
+  color: var(--rose-dark);
+  font-weight: 700;
+}
+
+/* Interactive Bestie Compliments / Memory Notes */
+.card-mini-features {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 10px 0 28px 0;
+}
+
+@media (max-width: 640px) {
+  .card-mini-features {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+
+.mini-feature-item {
+  background: #ffffff;
+  border: 1.5px solid var(--soft-pink);
+  border-radius: var(--radius-sm);
+  padding: 16px 12px;
+  text-align: center;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(231, 111, 142, 0.05);
+}
+
+.mini-feature-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--rose-accent);
+  box-shadow: var(--shadow-sm);
+  background: #fff8fa;
+}
+
+.mini-feature-icon {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.mini-feature-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.mini-feature-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Card Footer & Signature */
+.card-signoff {
+  font-family: var(--font-display);
+  font-size: 26px;
+  color: var(--rose-dark);
+  margin-bottom: 20px;
+}
+
+/* Hug & Sparkle Interactive Button */
+.btn-action-hug {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #fff0f5 0%, #f8eaff 100%);
+  border: 1.5px solid var(--rose-accent);
+  color: var(--rose-dark);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.btn-action-hug:hover {
+  background: var(--rose-accent);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-action-hug:active {
+  transform: scale(0.96);
+}
+
+/* ==========================================================================
+   PAGE FOOTER
+   ========================================================================== */
+.app-footer {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 20px;
+}
+
+.app-footer span {
+  color: var(--rose-accent);
+}
+
+/* ==========================================================
+   FINAL MERGE OVERRIDES
+   PP = background cinematic + butterfly
+   CURSOR = landing page, cake, and greeting letter
+   ========================================================== */
+html,
+body {
+  background: transparent !important;
+}
+body {
+  min-height: 100vh;
+  display: block !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.night-sky {
+  position: fixed !important;
+}
+#canvas {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+  opacity: 1 !important;
+}
+.app-container {
+  position: relative !important;
+  z-index: 10 !important;
+}
+.music-player-fixed {
+  z-index: 100 !important;
+}
+#particles-container {
+  z-index: 5 !important;
+}
+
+/* ==========================================================
+   PAGE TRANSITION MODE
+   Tidak ada scroll vertikal. Setiap bagian tampil sebagai
+   halaman penuh dan berpindah dengan animasi.
+   ========================================================== */
+.app-container {
+  position: relative !important;
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+  z-index: 10 !important;
+}
+
+.hero-section,
+.experience-wrapper {
+  width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+}
+
+.hero-section {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+  padding: clamp(18px, 4vh, 40px) 16px;
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) scale(1);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.65s;
+  z-index: 3;
+}
+
+.hero-section.hidden-section {
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-70px) scale(0.96);
+}
+
+.experience-wrapper {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: none;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.experience-wrapper.visible-section {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.cake-card,
+.gallery-section,
+.greeting-section {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(94vw, 680px);
+  max-width: 680px;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, -50%) translateX(70px) scale(0.96);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.65s;
+}
+
+.cake-card.page-active,
+.gallery-section.page-active,
+.greeting-section.page-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) translateX(0) scale(1);
+}
+
+.cake-card.page-leaving,
+.gallery-section.page-leaving,
+.greeting-section.page-leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, -50%) translateX(-70px) scale(0.96);
+}
+
+/* Ukuran aman supaya halaman cake tidak memicu scroll */
+.cake-card {
+  max-height: 94vh;
+  overflow: hidden;
+  padding: clamp(20px, 4vh, 40px) 24px clamp(18px, 3vh, 36px);
+}
+
+/*foto*/
+.gallery-section {
+  max-height: 94vh;
+}
+/* Kartu surat tetap satu halaman */
+.greeting-section {
+  max-height: 94vh;
+}
+
+.floral-card-wrapper {
+  max-height: 94vh;
+  overflow: hidden;
+}
+
+@media (max-width: 700px) {
+  .hero-section {
+    padding: 16px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.1rem, 11vw, 3.2rem);
+  }
+
+  .hero-subtitle {
+    max-width: 90vw;
+    margin-bottom: 22px;
+  }
+
+  .gift-box-wrapper {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 22px;
+  }
+
+  .btn-magical-opener {
+    font-size: 14px;
+    padding: 13px 22px;
+  }
+
+  .cake-card {
+    width: 94vw;
+    padding: 20px 16px;
+  }
+
+  .greeting-section {
+    width: 94vw;
+  }
+
+  .floral-card-wrapper {
+    padding: 24px 16px 22px;
+    max-height: 92vh;
+    transform: scale(0.88);
+    transform-origin: center center;
+  }
+}
+
+@media (max-height: 720px) and (min-width: 701px) {
+  .cake-card {
+    transform: translate(-50%, -50%) scale(0.88);
+  }
+
+  .cake-card.page-active {
+    transform: translate(-50%, -50%) scale(0.88);
+  }
+
+  .greeting-section {
+    transform: translate(-50%, -50%) scale(0.82);
+  }
+
+  .greeting-section.page-active {
+    transform: translate(-50%, -50%) scale(0.82);
+  }
+}
+
+/* =======================================================
+   GALLERY SECTION - MEMORY LANE
+   ======================================================= */
+
+.gallery-section {
+  max-height: 94vh;
+}
+
+.gallery-card-wrapper {
+  position: relative;
+  width: 100%;
+  background: var(--cream-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--cream-border);
+  padding: 36px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.gallery-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  color: var(--rose-dark);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.gallery-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Wadah slider */
+.carousel-container {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 10px 10px 24px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--rose-accent) transparent;
+}
+
+.carousel-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.carousel-container::-webkit-scrollbar-thumb {
+  background-color: var(--rose-accent);
+  border-radius: 10px;
+}
+
+/* Kartu Polaroid */
+.polaroid-card {
+  flex: 0 0 75%;
+  max-width: 240px;
+  scroll-snap-align: center;
+  background: #ffffff;
+  padding: 10px 10px 40px 10px;
+  border-radius: 4px;
+  box-shadow: 0 6px 15px rgba(220, 110, 150, 0.15);
+  position: relative;
+  border: 1px solid #f0f0f0;
+  transform: rotate(-2deg);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.polaroid-card:nth-child(even) {
+  transform: rotate(2deg);
+}
+
+.polaroid-card:hover {
+  transform: scale(1.03) rotate(0deg);
+  z-index: 2;
+  box-shadow: 0 10px 25px rgba(220, 110, 150, 0.25);
+}
+
+.polaroid-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 2px;
+  background-color: var(--cream-soft);
+  display: block;
+}
+
+.polaroid-caption {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--text-main);
+  position: absolute;
+  bottom: 8px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+/* =======================================================
+   MOBILE - GALLERY
+   ======================================================= */
+
+@media (max-width: 600px) {
+  .gallery-section {
+    width: 92vw;
+    max-height: 88vh;
+  }
+
+  .gallery-card-wrapper {
+    width: 100%;
+    padding: 24px 12px 20px;
+    border-radius: 20px;
+  }
+
+  .gallery-title {
+    font-size: 2rem;
+    line-height: 1.1;
+  }
+
+  .gallery-subtitle {
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .carousel-container {
+    gap: 12px;
+    padding: 8px 6px 18px;
+  }
+
+  .polaroid-card {
+    flex: 0 0 72%;
+    max-width: 200px;
+    padding: 8px 8px 34px;
+  }
+
+  .polaroid-caption {
+    font-size: 17px;
+    bottom: 6px;
+  }
+
+  #continueToLetterBtn {
+    width: 90%;
+    max-width: 280px;
+    min-height: 46px;
+    font-size: 14px !important;
+    padding: 10px 18px !important;
+  }
+}
+
+/* =======================================================
+   MOBILE - GREETING CARD
+   ======================================================= */
+
+/* =======================================================
+   MOBILE - KARTU UCAPAN PANJANG
+   ======================================================= */
+
+@media (max-width: 600px) {
+  /* Area halaman kartu */
+  .greeting-section {
+    width: 94vw;
+    height: 88vh;
+    max-height: 88vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+
+    padding: 8px 0;
+    box-sizing: border-box;
+  }
+
+  /* Hilangkan pembatas tinggi kartu di dalamnya */
+  .greeting-section .floral-card-wrapper {
+    width: 100%;
+    max-height: none;
+    height: auto;
+
+    overflow: visible;
+
+    box-sizing: border-box;
+  }
+
+  /* Isi kartu */
+  .greeting-section .card-inner-frame {
+    height: auto;
+    max-height: none;
+  }
+
+  /* Scrollbar */
+  .greeting-section::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .greeting-section::-webkit-scrollbar-thumb {
+    background: var(--rose-accent);
+    border-radius: 10px;
+  }
+
+  .greeting-section::-webkit-scrollbar-track {
+    background: transparent;
+  }
+}

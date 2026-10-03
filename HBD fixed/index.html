@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Greeting for Best Friend</title>
+    <meta
+      name="description"
+      content="Website ucapan ulang tahun interaktif untuk sahabat perempuan dengan kue tiup lilin, confetti, kartu ucapan estetik, dan musik."
+    />
+    <meta property="og:title" content="Birthday Greeting for Best Friend" />
+    <meta
+      property="og:description"
+      content="Website ucapan ulang tahun interaktif untuk sahabat perempuan dengan kue tiup lilin, confetti, kartu ucapan estetik, dan musik."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google Fonts for Sweet & Aesthetic Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CDN canvas-confetti library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.4/dist/confetti.browser.min.js"></script>
+
+    <!-- Custom Pastel Theme Stylesheet -->
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- ===== BACKGROUND DARI PP ===== -->
+    <div class="night-sky" aria-hidden="true"></div>
+    <div class="nebula-glow" aria-hidden="true"></div>
+    <div class="spotlight" aria-hidden="true"></div>
+    <div class="anamorphic-beam" aria-hidden="true"></div>
+    <canvas id="canvas" aria-hidden="true"></canvas>
+    <!-- ===== END BACKGROUND PP ===== -->
+    <!-- Floating Hearts & Floral Petals Canvas Layer -->
+    <div id="particles-container" aria-hidden="true"></div>
+
+    <!-- Music Player (Feature 3d - Top-Right Corner) -->
+    <aside class="music-player-fixed" id="musicPlayerWrapper">
+      <button
+        class="music-btn"
+        id="musicBtn"
+        type="button"
+        aria-label="Putar atau jeda musik latar"
+        title="Putar atau jeda musik ulang tahun"
+      >
+        <span class="vinyl-disc" aria-hidden="true">🎵</span>
+        <span id="musicStatusText">Musik: Putar</span>
+        <div class="music-wave" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+    </aside>
+
+    <!-- Main Container -->
+    <main class="app-container" id="appContainer">
+      <!-- ===============================================================
+           LANDING PAGE (FEATURE 3a) - Cute / Unique Opener
+           =============================================================== -->
+      <section
+        class="hero-section"
+        id="heroSection"
+        aria-labelledby="heroTitle"
+      >
+        <div class="cute-badge">
+          <span>✨ Spesial Hari Ulang Tahun ✨</span>
+        </div>
+
+        <h1 class="hero-title" id="heroTitle">Untuk Sahabat terbaikku</h1>
+        <p class="hero-subtitle">
+          Ada sebuah kejutan manis yang sudah disiapkan khusus untuk merayakan
+          hari kelahiranmu yang begitu istimewa...
+        </p>
+
+        <!-- Interactive Gift Box Visual -->
+        <div
+          class="gift-box-wrapper"
+          id="giftBoxOpener"
+          role="button"
+          tabindex="0"
+          title="Klik untuk membuka kado"
+        >
+          <div class="gift-box-inner">
+            <span class="gift-sparkles" aria-hidden="true">✨</span>
+            <span class="gift-icon" aria-hidden="true">🎁</span>
+          </div>
+        </div>
+
+        <!-- Cute Opener Button -->
+        <button class="btn-magical-opener" id="openSurpriseBtn" type="button">
+          <span class="btn-icon-shine" aria-hidden="true">✨</span>
+          <span>Buka Kejutan Ulang Tahun</span>
+          <span aria-hidden="true">🎀</span>
+        </button>
+      </section>
+
+      <!-- ===============================================================
+           EXPERIENCE WRAPPER (Revealed upon opening surprise)
+           =============================================================== -->
+      <div class="experience-wrapper" id="experienceWrapper">
+        <!-- =============================================================
+             INTERACTIVE CAKE (FEATURE 3b)
+             ============================================================= -->
+        <section class="cake-card" id="cakeCard" aria-labelledby="cakeHeading">
+          <h2 class="cake-header-title" id="cakeHeading">
+            Tiup Lilinnya & Make a Wish!
+          </h2>
+          <div class="cake-instruction">
+            <span>Sentuh / Klik lilin untuk meniup apinya 🎂</span>
+          </div>
+
+          <!-- Birthday Cake Visual Stage -->
+          <div
+            class="cake-stage"
+            id="cakeStage"
+            role="button"
+            tabindex="0"
+            title="Klik lilin untuk meniup!"
+          >
+            <!-- Candle & Flame -->
+            <div
+              class="candle-wrapper"
+              id="candleWrapper"
+              title="Klik lilin untuk meniup"
+            >
+              <div class="smoke-puff" aria-hidden="true"></div>
+              <div
+                class="candle-flame"
+                id="candleFlame"
+                aria-hidden="true"
+              ></div>
+              <div class="candle-wick" aria-hidden="true"></div>
+              <div class="candle-stick" aria-hidden="true"></div>
+            </div>
+
+            <!-- Cake Toppings: Strawberries & Pearls -->
+            <div class="cake-decorations" aria-hidden="true">
+              <span class="strawberry">🍓</span>
+              <span class="strawberry">🍓</span>
+              <span class="strawberry">🍓</span>
+            </div>
+
+            <!-- Cake Tier 2 (Top Layer - Lavender Cream) -->
+            <div class="cake-tier-top">
+              <div class="drip-container">
+                <div class="drip"></div>
+                <div class="drip"></div>
+                <div class="drip"></div>
+                <div class="drip"></div>
+                <div class="drip"></div>
+                <div class="drip"></div>
+              </div>
+            </div>
+
+            <!-- Cake Tier 1 (Bottom Layer - Soft Pink Frosting) -->
+            <div class="cake-tier-bottom">
+              <div class="drip-container">
+                <div class="drip"></div>
+                <div class="drip"></div>
+                <div class="drip"></div>
+                <div class="drip"></div>
+                <div class="drip"></div>
+                <div class="drip"></div>
+                <div class="drip"></div>
+                <div class="drip"></div>
+              </div>
+            </div>
+
+            <!-- Plate Base -->
+            <div class="cake-plate" aria-hidden="true"></div>
+          </div>
+
+          <!-- Wish Banner (Revealed on Candle Blow) -->
+          <div class="wish-banner" id="wishBanner">
+            <div class="wish-banner-title">
+              🎉 Yaaay! Lilin Berhasil Ditiup! 🥳
+            </div>
+            <div class="wish-banner-desc"> Semoga semua doa, cita-cita, dan harapan
+            terbaikmu dikabulkan. Kamu berhak mendapatkan segala kebahagiaan di dunia!
+          </div>
+        </section>
+
+        <!-- Halaman 3: Memory Lane / Galeri Foto -->
+<section class="gallery-section" id="gallerySection">
+  <div class="gallery-card-wrapper">
+
+    <h3 class="gallery-title">Kenangan Indah 📸</h3>
+
+    <p class="gallery-subtitle">
+      Geser ke samping untuk melihat momen-momen manis kita!
+    </p>
+
+    <div class="carousel-container">
+
+      <!-- Foto 1 -->
+      <div class="polaroid-card">
+        <img
+          class="polaroid-img"
+          src="img/foto1.jpeg"
+          alt="Momen 1"
+        >
+        <div class="polaroid-caption">
+          Hari Yang Indah ☀️
+        </div>
+      </div>
+
+      <!-- Foto 2 -->
+      <div class="polaroid-card">
+        <img
+          class="polaroid-img"
+          src="img/foto2.jpeg"
+          alt="Momen 2"
+        >
+        <div class="polaroid-caption">
+          Nonton Bareng ☕
+        </div>
+      </div>
+
+      <!-- Foto 3 -->
+      <div class="polaroid-card">
+        <img
+          class="polaroid-img"
+          src="img/foto3.jpeg"
+          alt="Momen 3"
+        >
+        <div class="polaroid-caption">
+          Selalu Bersama 💕
+        </div>
+      </div>
+
+      <!-- Foto 4 -->
+      <div class="polaroid-card">
+        <img
+          class="polaroid-img"
+          src="img/foto4.jpeg"
+          alt="Momen 4"
+        >
+        <div class="polaroid-caption">
+          Momen Manis 🌸
+        </div>
+      </div>
+
+      <!-- Foto 5 -->
+      <div class="polaroid-card">
+        <img
+          class="polaroid-img"
+          src="img/foto5.jpeg"
+          alt="Momen 5"
+        >
+        <div class="polaroid-caption">
+          Senyum Terbaik 😊
+        </div>
+      </div>
+
+      <!-- Foto 6 -->
+      <div class="polaroid-card">
+        <img
+          class="polaroid-img"
+          src="img/foto6.jpeg"
+          alt="Momen 6"
+        >
+        <div class="polaroid-caption">
+          Hari Yang Indah ☀️
+        </div>
+      </div>
+
+      <!-- Foto 7 -->
+      <div class="polaroid-card">
+        <img
+          class="polaroid-img"
+          src="img/foto7.jpeg"
+          alt="Momen 7"
+        >
+        <div class="polaroid-caption">
+          Forever Friends 💖
+        </div>
+      </div>
+
+      <!-- Foto 8 -->
+      <div class="polaroid-card">
+        <img
+          class="polaroid-img"
+          src="img/foto8.jpeg"
+          alt="Momen 8"
+        >
+        <div class="polaroid-caption">
+          Selalu Seru 🎀
+        </div>
+      </div>
+
+      <!-- Foto 9 -->
+      <div class="polaroid-card">
+        <img
+          class="polaroid-img"
+          src="img/foto9.jpeg"
+          alt="Momen 9"
+        >
+        <div class="polaroid-caption">
+          Kenangan Favorit ✨
+        </div>
+      </div>
+
+      <!-- Foto 10 -->
+      <div class="polaroid-card">
+        <img
+          class="polaroid-img"
+          src="img/foto10.jpeg"
+          alt="Momen 10"
+        >
+        <div class="polaroid-caption">
+          Cerita Kita 💕
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Tombol menuju kartu ucapan -->
+    <button
+      class="btn-magical-opener"
+      id="continueToLetterBtn"
+      type="button"
+      style="margin-top: 10px; padding: 12px 28px; font-size: 15px;"
+    >
+      <span>Baca Surat Untukmu</span>
+      <span>💌</span>
+    </button>
+
+  </div>
+</section>
+
+        <!-- =============================================================
+             GREETING CARD & FLORAL ACCENTS (FEATURE 3c)
+             ============================================================= -->
+        <section
+          class="greeting-section"
+          id="greetingSection"
+          aria-labelledby="greetingTitle"
+        >
+          <div class="floral-card-wrapper">
+            <!-- Botanical Floral Corner SVG Accents -->
+            <svg
+              class="floral-corner top-left"
+              viewBox="0 0 100 100"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M0 0C40 10 70 40 80 80C50 70 20 40 0 0Z"
+                fill="#ffd6e0"
+                opacity="0.6"
+              />
+              <circle cx="28" cy="28" r="14" fill="#ffb7c5" opacity="0.7" />
+              <circle cx="28" cy="28" r="7" fill="#fffdf9" />
+              <circle cx="56" cy="20" r="9" fill="#e9d5ff" opacity="0.8" />
+              <circle cx="20" cy="56" r="9" fill="#e9d5ff" opacity="0.8" />
+              <path
+                d="M28 28C38 12 55 10 70 12"
+                stroke="#c084fc"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-dasharray="2 4"
+              />
+              <path
+                d="M28 28C12 38 10 55 12 70"
+                stroke="#ff8fa3"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-dasharray="2 4"
+              />
+            </svg>
+
+            <svg
+              class="floral-corner top-right"
+              viewBox="0 0 100 100"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M0 0C40 10 70 40 80 80C50 70 20 40 0 0Z"
+                fill="#ffd6e0"
+                opacity="0.6"
+              />
+              <circle cx="28" cy="28" r="14" fill="#ffb7c5" opacity="0.7" />
+              <circle cx="28" cy="28" r="7" fill="#fffdf9" />
+              <circle cx="56" cy="20" r="9" fill="#e9d5ff" opacity="0.8" />
+              <circle cx="20" cy="56" r="9" fill="#e9d5ff" opacity="0.8" />
+              <path
+                d="M28 28C38 12 55 10 70 12"
+                stroke="#c084fc"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-dasharray="2 4"
+              />
+              <path
+                d="M28 28C12 38 10 55 12 70"
+                stroke="#ff8fa3"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-dasharray="2 4"
+              />
+            </svg>
+
+            <svg
+              class="floral-corner bottom-left"
+              viewBox="0 0 100 100"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M0 0C40 10 70 40 80 80C50 70 20 40 0 0Z"
+                fill="#ffd6e0"
+                opacity="0.6"
+              />
+              <circle cx="28" cy="28" r="14" fill="#ffb7c5" opacity="0.7" />
+              <circle cx="28" cy="28" r="7" fill="#fffdf9" />
+              <circle cx="56" cy="20" r="9" fill="#e9d5ff" opacity="0.8" />
+              <circle cx="20" cy="56" r="9" fill="#e9d5ff" opacity="0.8" />
+              <path
+                d="M28 28C38 12 55 10 70 12"
+                stroke="#c084fc"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-dasharray="2 4"
+              />
+              <path
+                d="M28 28C12 38 10 55 12 70"
+                stroke="#ff8fa3"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-dasharray="2 4"
+              />
+            </svg>
+
+            <svg
+              class="floral-corner bottom-right"
+              viewBox="0 0 100 100"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M0 0C40 10 70 40 80 80C50 70 20 40 0 0Z"
+                fill="#ffd6e0"
+                opacity="0.6"
+              />
+              <circle cx="28" cy="28" r="14" fill="#ffb7c5" opacity="0.7" />
+              <circle cx="28" cy="28" r="7" fill="#fffdf9" />
+              <circle cx="56" cy="20" r="9" fill="#e9d5ff" opacity="0.8" />
+              <circle cx="20" cy="56" r="9" fill="#e9d5ff" opacity="0.8" />
+              <path
+                d="M28 28C38 12 55 10 70 12"
+                stroke="#c084fc"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-dasharray="2 4"
+              />
+              <path
+                d="M28 28C12 38 10 55 12 70"
+                stroke="#ff8fa3"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-dasharray="2 4"
+              />
+            </svg>
+
+            <!-- Inner Frame -->
+            <div class="card-inner-frame">
+              <div class="card-ribbon">
+                <span aria-hidden="true">🌸</span>
+                <span class="card-ribbon-text"
+                  >Surat Manis di Hari Spesial</span
+                >
+                <span aria-hidden="true">🌸</span>
+              </div>
+
+              <h3 class="card-greeting-heading" id="greetingTitle">
+                Selamat Ulang Tahun!
+              </h3>
+
+              <!-- Recipient Best Friend Tag with Personalization -->
+              <div class="recipient-badge-container">
+                <span class="recipient-label">Untuk:</span>
+                <span class="recipient-name" id="recipientName"
+                  >Sahabat Terbaikku 💕</span
+                >
+                <button
+                  class="btn-edit-name"
+                  id="editNameBtn"
+                  type="button"
+                  title="Ubah nama sahabat"
+                  aria-label="Ubah nama sahabat"
+                >
+                  ✏️
+                </button>
+              </div>
+
+              <!-- Heartfelt Letter Content -->
+              <article class="letter-body">
+                <p>
+                  <P>
+                  Di hari yang begitu indah dan penuh berkah ini, aku ingin
+                  mengucapkan</p>
+                  <span class="letter-highlight">Happy birthday yaa! 🎉</span>
+                  <p>
+                  Semoga di umur yang ke-20 ini kamu selalu sehat, bahagia, dan 
+                  semua yang kamu inginkan bisa pelan-pelan tercapai.
+                  </p><p>
+                  Di hari spesialmu ini aku juga mau bilang makasih banyaakk. 
+                  Mungkin kamu nggak pernah benar-benar sadar, tapi kehadiranmu 
+                  punya arti yang cukup besar buat aku. Setelah aku putus dan 
+                  sempat kehilangan semangat buat kuliah, kamu jadi salah satu 
+                  alasan aku bisa semangat lagi. Hal-hal kecil yang mungkin buat 
+                  kamu biasa aja ternyata bisa berarti banyak buat aku.
+                  </p><p>
+                  Maap ya kalau akhir-akhir ini aku sering berperilaku aneh atau 
+                  nanya hal-hal yang mungkin bikin kamu bingung. Setelah kemarin 
+                  aku ngasih kamu bunga, aku malah jadi kepikiran sendiri, “Emang 
+                  aku ngedeketin kamu buat apa? Mau pacaran? Di umur segini selain 
+                  pacaran emang apa lagi?” 😭
+                  </p><P>
+                  Sebenarnya dari awal aku memang nggak berani buat mulai pacaran 
+                  lagi setelah putus sama ex-ku. (Ndak usah bahas orang Jepara, 
+                  gada apa-apa itu 😭). Dari situ aku mulai sadar kalau mungkin 
+                  aku terlalu kebawa perasaan, jadi sekarang aku mau belajar buat 
+                  lebih santai dan nggak terlalu mengikuti perasaanku sendiri.
+                  </P><P>
+                  Tapi aku juga nggak mau bohong, aku masih suuukaaa sama kamu. 
+                  Perasaan itu masih ada, meskipun aku tahu pilihanmu adalah tetap 
+                  jadi sahabat. Aku menghargai itu dan nggak mau memaksa kamu untuk 
+                  merasakan hal yang sama. Buat aku, tetap bisa berteman dan punya 
+                  kamu sebagai sahabat sudah menjadi sesuatu yang berharga.
+                  </P><P>
+                  Karena itu, mungkin sekarang waktunya aku belajar untuk berhenti 
+                  mengejar. Kalau selama ini aku terlalu sering mendekat sampai 
+                  membuat kamu kurang nyaman, maafin aku yaa. Aku nggak berhenti 
+                  karena perasaanku tiba-tiba hilang, tapi karena aku sadar kalau 
+                  pilihanmu juga harus aku hargai.
+                  </P><P>
+                  Terlepas dari semuanya, aku tetap senang pernah mengenal kamu. 
+                  Tingkahmu yang lucu ketika lagi gemes sama sesuatu sering bikin 
+                  aku ketawa, dan senyumanmu pernah menjadi salah satu hal kecil 
+                  yang bikin hari-hariku terasa lebih ringan.
+                  </P><P>
+                  Kalau suatu saat kamu lagi capek atau merasa nggak mampu, jangan 
+                  terlalu keras sama diri sendiri. Istirahat dulu kalau memang perlu, 
+                  lalu lanjut lagi pelan-pelan. Kamu sudah melewati banyak hal sampai 
+                  bisa berada di titik ini, jadi jangan lupa menghargai sejauh apa 
+                  kamu sudah bertahan.
+                  </P><P>
+                  Semoga di umur yang ke-20 ini kamu menemukan lebih banyak hal yang 
+                  bikin kamu bahagia, lebih banyak alasan untuk tersenyum, dan tentunya 
+                  lebih banyak hari baik daripada hari buruk.
+                  </P><P>
+                  Selamat ulang tahun yaa! 🎂🤍
+                  Jaga diri baik-baik, dan tetap jadi kamu yang aku kenal.
+                  </P>
+                </p>
+              </article>
+
+              <!-- Sweet Interactive Compliment Cards -->
+              <div class="card-mini-features">
+                <div
+                  class="mini-feature-item"
+                  role="button"
+                  tabindex="0"
+                  title="Klik untuk efek konfeti"
+                >
+                  <div class="mini-feature-icon" aria-hidden="true">✨</div>
+                  <div class="mini-feature-title">Senyumanmu</div>
+                  <div class="mini-feature-desc">
+                    Selalu berhasil mencerahkan hari siapa pun di sekitarmu.
+                  </div>
+                </div>
+
+                <div
+                  class="mini-feature-item"
+                  role="button"
+                  tabindex="0"
+                  title="Klik untuk efek konfeti"
+                >
+                  <div class="mini-feature-icon" aria-hidden="true">💖</div>
+                  <div class="mini-feature-title">Kebaikan Hatimu</div>
+                  <div class="mini-feature-desc">
+                    Jangan pernah berubah jadi orang lain, karena kebaikan 
+                    hatimu yang apa adanya itu justru salah satu hal yang 
+                    paling aku kagumi.
+                  </div>
+                </div>
+
+                <div
+                  class="mini-feature-item"
+                  role="button"
+                  tabindex="0"
+                  title="Klik untuk efek konfeti"
+                >
+                  <div class="mini-feature-icon" aria-hidden="true">🌷</div>
+                  <div class="mini-feature-title">Persahabatan</div>
+                  <div class="mini-feature-desc">
+                    Bersyukur banget bisa punya sahabat seistimewa dirimu.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Signoff -->
+              <div class="card-signoff">
+                Dengan Sepenuh Cinta & Pelukan Hangat, Selamanya Sahabatmu ✨
+              </div>
+
+              <!-- Send Warm Hug Interactive Action Button -->
+              <button class="btn-action-hug" id="hugBtn" type="button">
+                <span aria-hidden="true">🤗</span>
+                <span>Kirim jabat tangan & Harapan</span>
+                <span aria-hidden="true">💖</span>
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Custom Vanilla JavaScript Logic -->
+    <script src="pp-background.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
